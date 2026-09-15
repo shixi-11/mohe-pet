@@ -22,7 +22,10 @@ jobs:
       - run: python -m pip install --disable-pip-version-check Pillow==11.3.0
       - run: python scripts/validate_codex_pet.py
 
+  # Windows packaging is 2x minutes. Daily push/PR stays on Ubuntu.
+  # Pack on manual dispatch here, or on tags via release.yml.
   build:
+    if: github.event_name == 'workflow_dispatch'
     runs-on: windows-latest
     timeout-minutes: 20
     defaults:
